@@ -34,7 +34,8 @@ A smart web application that automatically **categorizes resumes**, provides **j
 
 ## 📸 Screenshots
 
-![App Screenshot](screenshots/demo.png)
+<img width="1760" height="891" alt="Screenshot (351)" src="https://github.com/user-attachments/assets/e6e2b8ce-6db9-4683-9e0e-f904047a2028" />
+
 
 ---
 
