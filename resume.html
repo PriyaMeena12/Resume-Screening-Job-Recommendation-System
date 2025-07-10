@@ -1,0 +1,197 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Screening AI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(90deg, #002244, #005b96);
+            color: #fff;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 25px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #003366;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            padding: 10px 25px;
+            background: #005b96;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #003f6b;
+        }
+
+        hr {
+            margin: 25px 0;
+            border: 0;
+            border-top: 1px solid #ccc;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .list-unstyled {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .info-block {
+            background: #f0f4fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            input[type="file"], input[type="submit"] {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>AI-Powered Resume Screening</h1>
+    <p>Upload your resume and let the AI extract insights, recommend jobs, and categorize it smartly.</p>
+</header>
+
+<div class="container">
+    <h2>Upload Your Resume</h2>
+    <form action="/pred" method="post" enctype="multipart/form-data">
+        <input type="file" name="resume" accept=".pdf, .txt" required>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if message %}
+    <p class="message">{{ message }}</p>
+    {% endif %}
+
+    {% if predicted_category %}
+    <hr>
+    <h2>Predicted Results</h2>
+    <div class="info-block">
+        <p><strong>Category:</strong> {{ predicted_category }}</p>
+        <p><strong>Recommended Job:</strong> {{ recommended_job }}</p>
+    </div>
+
+    <h2>Extracted Information</h2>
+    <div class="info-block">
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Phone:</strong> {{ phone }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
+    </div>
+
+    {% if extracted_skills %}
+    <div class="info-block">
+        <p><strong>Skills:</strong></p>
+        <ul class="list-unstyled">
+            {% for skill in extracted_skills %}
+            <li>• {{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p>No skills found.</p>
+    {% endif %}
+
+    {% if extracted_education %}
+    <div class="info-block">
+        <p><strong>Education:</strong></p>
+        <ul class="list-unstyled">
+            {% for edu in extracted_education %}
+            <li>• {{ edu }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p>No education details found.</p>
+    {% endif %}
+    {% endif %}
+</div>
+
+</body>
+</html>
